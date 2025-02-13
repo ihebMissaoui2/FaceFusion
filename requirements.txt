@@ -1,0 +1,11 @@
+Pillow
+python-multipart
+ffmpeg
+insightface
+onnxruntime-gpu
+numpy==1.23.5
+opencv-python
+opencv-contrib-python
+
+fastapi
+uvicorn[standard]

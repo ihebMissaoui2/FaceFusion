@@ -1,0 +1,39 @@
+# IDE files
+.idea/
+
+# Python bytecode files
+*.pyc
+*.pyo
+__pycache__/
+
+# Virtual environment directories
+venv/
+env/
+.venv/
+
+# Distribution / packaging
+*.egg
+*.egg-info
+dist/
+build/
+*.whl
+
+# PyInstaller
+*.manifest
+*.spec
+
+# FastAPI specific
+instance/
+*.db
+*.sqlite3
+
+# Pydantic & FastAPI specific (if using migrations or similar tools)
+migrations/
+
+# Test and coverage directories
+.coverage
+*.cover
+nosetests.xml
+coverage.xml
+*.hypothesis/
+*.tox/
