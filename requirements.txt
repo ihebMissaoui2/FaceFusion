@@ -6,6 +6,6 @@ onnxruntime-gpu
 numpy==1.23.5
 opencv-python
 opencv-contrib-python
-
+pydantic
 fastapi
 uvicorn[standard]
