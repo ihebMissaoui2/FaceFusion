@@ -38,3 +38,5 @@ coverage.xml
 *.hypothesis/
 *.tox/
 /Wav2Lip/
+/app/models/
+/app/Wav2Lip/

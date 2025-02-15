@@ -1,0 +1,116 @@
+2025-02-15 16:48:58,129 - INFO - Faceswap API called with target_image: test-image-1.jpg, source_image: test-image-2.jpg
+2025-02-15 16:48:58,167 - INFO - Successfully read both images as NumPy arrays.
+2025-02-15 16:48:58,167 - INFO - Starting face swap process.
+2025-02-15 16:48:58,167 - INFO - Initializing face analysis model.
+2025-02-15 16:49:12,659 - INFO - Face analysis model initialized successfully.
+2025-02-15 16:49:12,866 - INFO - Loading face swap model from models/inswapper_128.onnx.
+2025-02-15 16:49:12,866 - ERROR - Error during face swap processing: model_file models/inswapper_128.onnx should exist
+Traceback (most recent call last):
+  File "C:\Users\Decepticon\Desktop\Test Iheb\fastApiProject\FaceFusion\app\services\faceswap_service.py", line 51, in process_faceswap
+    model_swap_insightface = insightface.model_zoo.get_model(model_path, providers=providers)
+                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Decepticon\Desktop\Test Iheb\fastApiProject\FaceFusion\.venv\Lib\site-packages\insightface\model_zoo\model_zoo.py", line 91, in get_model
+    assert osp.exists(model_file), 'model_file %s should exist'%model_file
+AssertionError: model_file models/inswapper_128.onnx should exist
+2025-02-15 16:49:12,899 - INFO - Face swap processing completed successfully.
+2025-02-15 16:54:13,702 - INFO - Faceswap API called with target_image: test-image-1.jpg, source_image: test-image-2.jpg
+2025-02-15 16:54:13,719 - INFO - Successfully read both images as NumPy arrays.
+2025-02-15 16:54:13,719 - INFO - Starting face swap process.
+2025-02-15 16:54:13,719 - INFO - Initializing face analysis model.
+2025-02-15 16:54:14,442 - INFO - Face analysis model initialized successfully.
+2025-02-15 16:54:14,644 - INFO - Loading face swap model from models/inswapper_128.onnx.
+2025-02-15 16:54:15,533 - INFO - Face swap model loaded successfully.
+2025-02-15 16:54:15,533 - INFO - Performing face swap.
+2025-02-15 16:54:15,876 - INFO - Face swap completed successfully.
+2025-02-15 16:54:15,880 - INFO - Face-swapped image successfully generated and converted to byte stream.
+2025-02-15 16:54:15,920 - INFO - Face swap processing completed successfully.
+2025-02-15 16:54:36,069 - INFO - Received video: Kevin Surace_talk.mp4, audio: final_obbama_54_second.wav
+2025-02-15 16:54:36,072 - INFO - Temporary video file saved at: C:\Users\DECEPT~1\AppData\Local\Temp\tmp3fhh_0oi.mp4 (5729306 bytes)
+2025-02-15 16:54:36,078 - ERROR - An error occurred while running the inference command: [Errno 2] No such file or directory: '/app/models\\Kevin Surace_talk.mp4'
+Traceback (most recent call last):
+  File "C:\Users\Decepticon\AppData\Local\Programs\Python\Python311\Lib\shutil.py", line 853, in move
+    os.rename(src, real_dst)
+FileNotFoundError: [WinError 3] The system cannot find the path specified: 'C:\\Users\\DECEPT~1\\AppData\\Local\\Temp\\tmp3fhh_0oi.mp4' -> '/app/models\\Kevin Surace_talk.mp4'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\Decepticon\Desktop\Test Iheb\fastApiProject\FaceFusion\app\services\lipsync_service.py", line 37, in process_lipsync
+    shutil.move(video_path, video_new_path)
+  File "C:\Users\Decepticon\AppData\Local\Programs\Python\Python311\Lib\shutil.py", line 873, in move
+    copy_function(src, real_dst)
+  File "C:\Users\Decepticon\AppData\Local\Programs\Python\Python311\Lib\shutil.py", line 448, in copy2
+    copyfile(src, dst, follow_symlinks=follow_symlinks)
+  File "C:\Users\Decepticon\AppData\Local\Programs\Python\Python311\Lib\shutil.py", line 258, in copyfile
+    with open(dst, 'wb') as fdst:
+         ^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/app/models\\Kevin Surace_talk.mp4'
+2025-02-15 16:54:37,171 - INFO - Received video: Kevin Surace_talk.mp4, audio: final_obbama_54_second.wav
+2025-02-15 16:54:37,174 - INFO - Temporary video file saved at: C:\Users\DECEPT~1\AppData\Local\Temp\tmp4lljnebe.mp4 (5729306 bytes)
+2025-02-15 16:54:37,181 - ERROR - An error occurred while running the inference command: [Errno 2] No such file or directory: '/app/models\\Kevin Surace_talk.mp4'
+Traceback (most recent call last):
+  File "C:\Users\Decepticon\AppData\Local\Programs\Python\Python311\Lib\shutil.py", line 853, in move
+    os.rename(src, real_dst)
+FileNotFoundError: [WinError 3] The system cannot find the path specified: 'C:\\Users\\DECEPT~1\\AppData\\Local\\Temp\\tmp4lljnebe.mp4' -> '/app/models\\Kevin Surace_talk.mp4'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\Decepticon\Desktop\Test Iheb\fastApiProject\FaceFusion\app\services\lipsync_service.py", line 37, in process_lipsync
+    shutil.move(video_path, video_new_path)
+  File "C:\Users\Decepticon\AppData\Local\Programs\Python\Python311\Lib\shutil.py", line 873, in move
+    copy_function(src, real_dst)
+  File "C:\Users\Decepticon\AppData\Local\Programs\Python\Python311\Lib\shutil.py", line 448, in copy2
+    copyfile(src, dst, follow_symlinks=follow_symlinks)
+  File "C:\Users\Decepticon\AppData\Local\Programs\Python\Python311\Lib\shutil.py", line 258, in copyfile
+    with open(dst, 'wb') as fdst:
+         ^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/app/models\\Kevin Surace_talk.mp4'
+2025-02-15 16:55:51,502 - INFO - Received video: Kevin Surace_talk.mp4, audio: final_obbama_54_second.wav
+2025-02-15 16:55:51,505 - INFO - Temporary video file saved at: C:\Users\DECEPT~1\AppData\Local\Temp\tmpxz01ru0t.mp4 (5729306 bytes)
+2025-02-15 16:55:51,511 - ERROR - An error occurred while running the inference command: [Errno 2] No such file or directory: '/models\\Kevin Surace_talk.mp4'
+Traceback (most recent call last):
+  File "C:\Users\Decepticon\AppData\Local\Programs\Python\Python311\Lib\shutil.py", line 853, in move
+    os.rename(src, real_dst)
+FileNotFoundError: [WinError 3] The system cannot find the path specified: 'C:\\Users\\DECEPT~1\\AppData\\Local\\Temp\\tmpxz01ru0t.mp4' -> '/models\\Kevin Surace_talk.mp4'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\Decepticon\Desktop\Test Iheb\fastApiProject\FaceFusion\app\services\lipsync_service.py", line 37, in process_lipsync
+    shutil.move(video_path, video_new_path)
+  File "C:\Users\Decepticon\AppData\Local\Programs\Python\Python311\Lib\shutil.py", line 873, in move
+    copy_function(src, real_dst)
+  File "C:\Users\Decepticon\AppData\Local\Programs\Python\Python311\Lib\shutil.py", line 448, in copy2
+    copyfile(src, dst, follow_symlinks=follow_symlinks)
+  File "C:\Users\Decepticon\AppData\Local\Programs\Python\Python311\Lib\shutil.py", line 258, in copyfile
+    with open(dst, 'wb') as fdst:
+         ^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/models\\Kevin Surace_talk.mp4'
+2025-02-15 16:56:45,788 - INFO - Received video: Kevin Surace_talk.mp4, audio: final_obbama_54_second.wav
+2025-02-15 16:56:45,791 - INFO - Temporary video file saved at: C:\Users\DECEPT~1\AppData\Local\Temp\tmp8gcaydg2.mp4 (5729306 bytes)
+2025-02-15 16:56:45,796 - INFO - Temporary audio file saved at: C:\Users\DECEPT~1\AppData\Local\Temp\tmph_g9hl2o.wav (9528962 bytes)
+2025-02-15 16:56:45,796 - INFO - Running inference command: python3 Wav2Lip/inference.py --checkpoint_path models/wav2lip.pth --face models\Kevin Surace_talk.mp4 --audio models\final_obbama_54_second.wav
+2025-02-15 16:56:45,873 - ERROR - Python was not found; run without arguments to install from the Microsoft Store, or disable this shortcut from Settings > Manage App Execution Aliases.
+2025-02-15 16:56:45,874 - ERROR - Inference failed with return code 9009
+2025-02-15 16:56:45,874 - INFO - Returning the processed video as a file response.
+2025-02-15 16:58:52,490 - INFO - Received video: Kevin Surace_talk.mp4, audio: final_obbama_54_second.wav
+2025-02-15 16:58:52,492 - INFO - Temporary video file saved at: C:\Users\DECEPT~1\AppData\Local\Temp\tmpm7u2pqog.mp4 (5729306 bytes)
+2025-02-15 16:58:52,508 - INFO - Temporary audio file saved at: C:\Users\DECEPT~1\AppData\Local\Temp\tmph961k9b5.wav (9528962 bytes)
+2025-02-15 16:58:52,520 - INFO - Running inference command: python Wav2Lip/inference.py --checkpoint_path models/wav2lip.pth --face models\Kevin Surace_talk.mp4 --audio models\final_obbama_54_second.wav
+2025-02-15 16:58:52,539 - ERROR - Traceback (most recent call last):
+2025-02-15 16:58:52,539 - ERROR - File "C:\Users\Decepticon\Desktop\Test Iheb\fastApiProject\FaceFusion\app\Wav2Lip\inference.py", line 2, in <module>
+2025-02-15 16:58:52,539 - ERROR - import numpy as np
+2025-02-15 16:58:52,539 - ERROR - ModuleNotFoundError: No module named 'numpy'
+2025-02-15 16:58:52,539 - ERROR - Inference failed with return code 1
+2025-02-15 16:58:52,539 - INFO - Returning the processed video as a file response.
+2025-02-15 17:02:41,571 - INFO - Received video: Kevin Surace_talk.mp4, audio: final_obbama_54_second.wav
+2025-02-15 17:02:41,574 - INFO - Temporary video file saved at: C:\Users\DECEPT~1\AppData\Local\Temp\tmp4ckfa9nw.mp4 (5729306 bytes)
+2025-02-15 17:02:41,587 - INFO - Temporary audio file saved at: C:\Users\DECEPT~1\AppData\Local\Temp\tmpoacp08c1.wav (9528962 bytes)
+2025-02-15 17:02:41,597 - INFO - Running inference command: python Wav2Lip/inference.py --checkpoint_path models/wav2lip.pth --face models\Kevin Surace_talk.mp4 --audio models\final_obbama_54_second.wav
+2025-02-15 17:02:41,616 - ERROR - Traceback (most recent call last):
+2025-02-15 17:02:41,616 - ERROR - File "C:\Users\Decepticon\Desktop\Test Iheb\fastApiProject\FaceFusion\app\Wav2Lip\inference.py", line 2, in <module>
+2025-02-15 17:02:41,616 - ERROR - import numpy as np
+2025-02-15 17:02:41,616 - ERROR - ModuleNotFoundError: No module named 'numpy'
+2025-02-15 17:02:41,616 - ERROR - Inference failed with return code 1
+2025-02-15 17:02:41,616 - INFO - Returning the processed video as a file response.
