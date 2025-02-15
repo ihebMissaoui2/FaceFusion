@@ -1,64 +1,66 @@
 import os
 import shutil
-import subprocess
 import tempfile
-
+import subprocess
 from fastapi.responses import FileResponse
 from logger import logger
 
+UPLOAD_DIR = "/app/Wav2Lip"  # Permanent storage directory
 
-async def process_lipsync(video, audio):
+def process_lipsync(video, audio):
     """
-    Processes the LipSync operation.
-
-    Reads the uploaded video and audio files, synchronizes them using ,
-    and returns the processed video.
+    Processes the LipSync operation synchronously using subprocess.run.
 
     Args:
         video (UploadFile): The input video file.
         audio (UploadFile): The input audio file.
 
     Returns:
-        : The synchronized video file.
+        FileResponse: The synchronized video file.
     """
     logger.info(f"Received video: {video.filename}, audio: {audio.filename}")
-
 
     try:
         # Save video file temporarily
         with tempfile.NamedTemporaryFile(delete=False, suffix=".mp4") as temp_video:
-            video_data = await video.read()
+            video_data = video.file.read()
             temp_video.write(video_data)
             video_path = temp_video.name
             logger.info(f"Temporary video file saved at: {video_path} ({len(video_data)} bytes)")
-        UPLOAD_DIR = "models"  # Permanent storage directory
+
         # Move video file to permanent location
         video_new_path = os.path.join(UPLOAD_DIR, video.filename)
         shutil.move(video_path, video_new_path)
 
         # Save audio file temporarily
         with tempfile.NamedTemporaryFile(delete=False, suffix=".wav") as temp_audio:
-            audio_data = await audio.read()
+            audio_data = audio.file.read()
             temp_audio.write(audio_data)
             audio_path = temp_audio.name
             logger.info(f"Temporary audio file saved at: {audio_path} ({len(audio_data)} bytes)")
+
         # Move audio file to permanent location
         audio_new_path = os.path.join(UPLOAD_DIR, audio.filename)
         shutil.move(audio_path, audio_new_path)
-        # Construct the inference command with the dynamic paths
-        # temp_dir = '/app/Wav2Lip/temp'
-        # if not os.path.exists(temp_dir):
-        #   os.makedirs(temp_dir)
-        inference_command = [
-            "python", "Wav2Lip/inference.py",
-            "--checkpoint_path", "models/wav2lip.pth",
-            "--face", video_new_path,
-            "--audio", audio_new_path
-        ]
 
+        # Construct the inference command
+        # Change to the Wav2Lip subfolder
+        os.chdir("/app/Wav2Lip")
+        logger.info(f"{os.getcwd()}  # Get current working directory")
+
+        # Define paths using os.path.join() to ensure cross-platform compatibility
+        inference_command = [
+            "python", "inference.py",
+            "--checkpoint_path", "wav2lip.pth",
+            "--face",  audio_new_path,
+            "--audio", video_new_path,
+        ]
+        logger.info(f"{os.getcwd()}  # Get current working directory")
+        # Change to the Wav2Lip subfolder
+        os.chdir("/app/Wav2Lip")
         logger.info(f"Running inference command: {' '.join(inference_command)}")
 
-        # Use Popen to run the command and stream the output
+        # Run the command and capture output in real-time
         process = subprocess.Popen(
             inference_command,
             stdout=subprocess.PIPE,
@@ -66,32 +68,33 @@ async def process_lipsync(video, audio):
             text=True
         )
 
-        # Stream the output in real-time
-        for line in process.stdout:
-            logger.info(line.strip())  # Log the standard output
+        # Stream logs in real-time
+        def stream_output(stream, log_func):
+            for line in iter(stream.readline, ''):
+                log_func(line.strip())
+            stream.close()
 
-        # Capture stderr (error output)
-        for line in process.stderr:
-            logger.error(line.strip())  # Log the error output
+        # Stream both stdout and stderr
+        stream_output(process.stdout, logger.info)
+        stream_output(process.stderr, logger.error)
 
-        # Wait for the process to finish and get the return code
+        # Wait for process completion
         return_code = process.wait()
 
-        if return_code == 0:
-            logger.info("Inference completed successfully.")
-        else:
-            logger.error(f"Inference failed with return code {return_code}")
+        if return_code != 0:
+            raise RuntimeError(f"Inference failed with return code {return_code}")
 
-        # Assuming the result produces an output video file, replace this path with the actual path
-        output_video_path = "Wav2Lip/results/result_voice.mp4"  # Modify with actual path if needed
+        logger.info("Inference completed successfully.")
+
+        # Assuming the result produces an output video file
+        output_video_path = "/app/Wav2Lip/results/result_voice.mp4"  # Modify if needed
+
+        if not os.path.exists(output_video_path):
+            raise FileNotFoundError("Output video file was not created.")
 
         logger.info("Returning the processed video as a file response.")
-        # Returning the video as a file response
         return FileResponse(output_video_path, media_type="video/mp4", filename="output_video.mp4")
 
-    except subprocess.TimeoutExpired as e:
-        logger.error(f"Inference command timed out: {e}")
-        return {"status": "error", "message": "Inference command timed out"}
     except Exception as e:
         logger.error(f"An error occurred while running the inference command: {e}", exc_info=True)
         return {"status": "error", "message": str(e)}
