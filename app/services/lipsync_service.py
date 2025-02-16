@@ -38,7 +38,7 @@ def run_inference_command(video_filename, audio_filename):
         )
 
         stdout_thread = threading.Thread(target=stream_output, args=(process.stdout, logger.info))
-        stderr_thread = threading.Thread(target=stream_output, args=(process.stderr, logger.error))
+        stderr_thread = threading.Thread(target=stream_output, args=(process.stderr, logger.warning))
         stdout_thread.start()
         stderr_thread.start()
 
@@ -76,18 +76,22 @@ async def process_lipsync(video, audio):
 
         # Run inference
         run_inference_command(video_name, audio_name)
-
+        # back to root
+        os.chdir("..")
         # Output file path
-        output_video_path = os.path.join("results", "result_voice.mp4")
+        output_video_path = os.path.join(UPLOAD_DIR,"results", "result_voice.mp4")
         if not os.path.exists(output_video_path):
             raise FileNotFoundError("Output video file was not created.")
 
         # Cleanup temporary inputs files
 
         delete_files([video_name,audio_name])
+
+
         # Add the cleanup task which will be triggered after sending the file(because the user wait for the file for now ).
 
         logger.info("Returning the processed video as a file response.")
+
         return FileResponse(output_video_path, media_type="video/mp4", filename="lipsync_generated_video.mp4")
 
 
