@@ -113,9 +113,17 @@ Returns a video file with synchronized lip movements.
 
 
 # Future Enhancements
-Add support of GPU acceleration for faster processing.
 
-Support additional face processing features (e.g., face reenactment).
+Wav2Lip primarily supports video and audio synchronization for up to 60 seconds per inference due to memory constraints and processing limitations. 
+
+=>Workaround for Longer Videos:
+
+  *  Segment the video into 60s chunks and process each separately.
+  * Reassemble the processed clips after inference.
+
+=>Add support of GPU acceleration for faster processing.
+
+=>Support additional face processing features (e.g., face reenactment).
 
 
 IHEB MISSAOUI (@iheb_missaoui) Feel free to contribute by submitting issues and pull requests!
