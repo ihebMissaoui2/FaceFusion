@@ -94,7 +94,7 @@ async def process_lipsync(video, audio):
         logger.info("Inference completed successfully.")
 
         # Path to the generated video output
-        output_video_path = "results/result_voice.mp4"
+        output_video_path = os.path.join("results","result_voice.mp4")
         if not os.path.exists(output_video_path):
             raise FileNotFoundError("Output video file was not created.")
 
