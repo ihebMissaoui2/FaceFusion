@@ -180,8 +180,6 @@ Wav2Lip primarily supports video and audio synchronization for up to 60 seconds 
 =>Support additional face processing features (e.g., face reenactment).
 
 
-IHEB MISSAOUI (@iheb_missaoui) Feel free to contribute by submitting issues and pull requests!
 
-License
 
 
