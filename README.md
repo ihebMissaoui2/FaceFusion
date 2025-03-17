@@ -68,14 +68,14 @@ Other files
 
 ## Installation  (With docker)
 
-###   Running with Docker
+###   Running with Docker using CPU
 For easy usage run it with docker:
 
 Build the Docker Image
 ```bash
 docker build -t facefusion-api .
 ```
-Run the Container (Limited performance of inference due to usage of  CPU for now )
+Run the Container (using CPU for  )
 ```bash
 docker run --name facefusion-container -p 8000:8000 facefusion-api
 ```
@@ -85,11 +85,15 @@ Note that the container requires a minimum of approximately 12GB of RAM to load 
 
 If you have Docker Desktop installed on your personal PC, Docker by default allocates 50% of your system's memory to containers. In my case, I had to increase the memory allocation to at least 12GB to avoid issues when running inference in the Wav2Lip API.
 To do this, you need to configure the .wslconfig file to prevent memory-related issues.
+###   Running with Docker using GPU
+
+To run the models using GPU for better inference time use : 
 ```bash
-docker run -p 8000:8000 --cpus=32 --memory=14g facefusion-api
+docker run -d -p 8000:8000  --name lypsyncontainer --runtime=nvidia --gpus all facefusion-api
+
 
 ```
-
+Note that Wav2Lip model need 15gb of GPU VRAM to due inference
 ## Installation & Setup (Without docker)
 
 ### Prerequisites
@@ -168,16 +172,14 @@ Returns a video file with synchronized lip movements.
 
 # Future Enhancements
 
-Wav2Lip primarily supports video and audio synchronization for up to 60 seconds per inference due to memory constraints and processing limitations. 
+Wav2Lip primarily supports video and audio synchronization for up to 60 seconds per inference . 
 
 =>Workaround for Longer Videos:
 
   *  Segment the video into 60s chunks and process each separately.
   * Reassemble the processed clips after inference.
 
-=>Add support of GPU acceleration for faster processing.
 
-=>Support additional face processing features (e.g., face reenactment).
 
 
 
