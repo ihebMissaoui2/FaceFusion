@@ -172,13 +172,16 @@ Returns a video file with synchronized lip movements.
 
 # Future Enhancements
 
-Wav2Lip primarily supports video and audio synchronization for up to 60 seconds per inference . 
+Wav2Lip primarily supports video and audio synchronization for up to 60 seconds per inference .
 
 =>Workaround for Longer Videos:
 
   *  Segment the video into 60s chunks and process each separately.
   * Reassemble the processed clips after inference.
 
+Note that : 
+
+!! Wav2Lip model require that all frame of videos must contain faces otherwise it throws an error!!
 
 
 
